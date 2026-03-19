@@ -1,28 +1,35 @@
-# 📚 LibraVault
-
-A modern **Library Management System** built using Flutter and Firebase.  
-This app allows multiple users to manage books, track availability, and handle issue/return operations in real-time.
-
----
-
 ## 🚀 Features
 
-- 🔐 User Authentication (Firebase Auth)
-- ☁️ Cloud Firestore Database
-- 🌍 Global Book Collection (multi-user support)
-- ➕ Add / ✏️ Edit / ❌ Delete Books
-- 🔄 Issue & Return Book System
-- 🔍 Search and Filter (Available / Issued)
-- 👤 Track who added each book
+- 🔐 **User Authentication**
+  - Secure login & registration using Firebase Auth
+
+- ☁️ **Cloud Firestore Integration**
+  - Real-time database for storing books and users
+
+- 🌍 **Multi-User System**
+  - All users can view shared books
+  - Each book shows who added it
+
+- 📚 **Book Management**
+  - Add, Edit, Delete books
+  - Track quantity and ISBN
+
+- 🔄 **Issue & Return System**
+  - Issue books to users
+  - Return books with status update
+
+- 🔍 **Search & Filter**
+  - Search by title, author, ISBN
+  - Filter by Available / Issued
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Frontend:** Flutter
-- **Backend:** Firebase
-- **Database:** Cloud Firestore
-- **Auth:** Firebase Authentication
+- **Frontend:** Flutter  
+- **Backend:** Firebase  
+- **Database:** Cloud Firestore  
+- **Authentication:** Firebase Auth  
 
 ---
 
