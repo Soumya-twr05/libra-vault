@@ -44,3 +44,4 @@ macos/Flutter/Flutter.framework
 # ===== Misc =====
 .history
 .svn/
+android/app/google-services.json
