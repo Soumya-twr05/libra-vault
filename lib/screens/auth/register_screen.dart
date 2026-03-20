@@ -67,6 +67,24 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
     }
   }
 
+  // ✅ NEW: Google Sign-In for Registration
+  Future<void> _registerWithGoogle() async {
+    setState(() => _loading = true);
+    final result = await ApiService().signInWithGoogle();
+    if (!mounted) return;
+    setState(() => _loading = false);
+    if (result['success']) {
+      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(result['message']),
+        backgroundColor: AppTheme.danger,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      ));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,6 +208,17 @@ class _RegisterScreenState extends State<RegisterScreen> with SingleTickerProvid
                                 ? const SizedBox(width: 22, height: 22,
                                     child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5))
                                 : const Text('Create Account'),
+                          ),
+                        ),
+
+                        const SizedBox(height: 16),
+
+                        // ✅ NEW: Google Sign-In Button
+                        SizedBox(
+                          height: 52,
+                          child: OutlinedButton(
+                            onPressed: _loading ? null : _registerWithGoogle,
+                            child: const Text('Continue with Google'),
                           ),
                         ),
 

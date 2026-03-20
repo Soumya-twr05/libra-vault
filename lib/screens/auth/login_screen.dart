@@ -56,6 +56,19 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     }
   }
 
+  // ✅ NEW: Google Sign-In
+  Future<void> _loginWithGoogle() async {
+    setState(() => _loading = true);
+    final result = await ApiService().signInWithGoogle();
+    if (!mounted) return;
+    setState(() => _loading = false);
+    if (result['success']) {
+      Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+    } else {
+      _showError(result['message']);
+    }
+  }
+
   void _showError(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(msg),
@@ -174,6 +187,17 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                     width: 22, height: 22,
                                     child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2.5))
                                 : const Text('Sign In'),
+                          ),
+                        ),
+
+                        const SizedBox(height: 16),
+
+                        // ✅ NEW: Google Sign-In Button
+                        SizedBox(
+                          height: 52,
+                          child: OutlinedButton(
+                            onPressed: _loading ? null : _loginWithGoogle,
+                            child: const Text('Continue with Google'),
                           ),
                         ),
 

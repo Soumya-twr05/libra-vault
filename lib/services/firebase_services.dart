@@ -60,6 +60,36 @@ class FirebaseService {
     }
   }
 
+  // ✅ Google Sign-In Method (Simple & Reliable)
+  Future<Map<String, dynamic>> signInWithGoogle() async {
+    try {
+      final GoogleAuthProvider googleProvider = GoogleAuthProvider();
+      
+      final UserCredential userCredential = await _auth.signInWithPopup(googleProvider);
+      final user = userCredential.user;
+
+      if (user != null) {
+        // Check if user exists in Firestore, if not, create
+        final userDoc = await _db.collection('users').doc(user.uid).get();
+        if (!userDoc.exists) {
+          await _db.collection('users').doc(user.uid).set({
+            'name': user.displayName ?? 'User',
+            'email': user.email ?? '',
+            'photoURL': user.photoURL ?? '',
+            'createdAt': FieldValue.serverTimestamp(),
+            'authProvider': 'Google',
+          });
+        }
+      }
+
+      return {'success': true};
+    } on FirebaseAuthException catch (e) {
+      return {'success': false, 'message': 'Firebase Auth Error: ${_friendlyError(e.code)}'};
+    } catch (e) {
+      return {'success': false, 'message': 'Google sign-in failed: $e'};
+    }
+  }
+
   Future<void> logout() => _auth.signOut();
 
   UserModel? getLoggedInUser() {

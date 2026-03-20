@@ -22,6 +22,10 @@ class ApiService {
   }) =>
       _fb.login(email: email, password: password);
 
+  // ✅ NEW: Google Sign-In
+  Future<Map<String, dynamic>> signInWithGoogle() =>
+      _fb.signInWithGoogle();
+
   Future<void> logout() => _fb.logout();
 
   Future<UserModel?> getLoggedInUser() async => _fb.getLoggedInUser();
