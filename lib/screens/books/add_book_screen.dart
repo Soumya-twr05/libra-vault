@@ -110,7 +110,7 @@ class _AddBookScreenState extends State<AddBookScreen> {
 
               const SizedBox(height: 28),
 
-              _SectionLabel(text: 'Book Details'),
+              const _SectionLabel(text: 'Book Details'),
               const SizedBox(height: 12),
 
               TextFormField(
